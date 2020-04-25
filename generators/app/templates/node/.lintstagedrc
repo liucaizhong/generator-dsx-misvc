@@ -1,0 +1,6 @@
+{
+  "*.(j|t)s": [
+    "npm run lint",
+    "git add ."
+  ]
+}

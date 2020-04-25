@@ -1,0 +1,11 @@
+**/node_modules/
+**/Dockerfile
+**/.dockerignore
+**/.gitignore
+**/.git
+**/README.md
+**/chart/
+**/tests/
+**/.eslintrc*
+
+Makefile

@@ -1,0 +1,6 @@
+{
+  "*.(j|t)s?(x)": [
+    "eslint --report-unused-disable-directives . --ext .ts,.tsx --fix",
+    "git add ."
+  ]
+}

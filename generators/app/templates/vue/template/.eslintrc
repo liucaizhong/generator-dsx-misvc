@@ -1,0 +1,29 @@
+{
+  "extends": [
+    "dsx-vue",
+    "dsx-vue/typescript",
+    "dsx-vue/prettier"
+  ],
+  "settings": {
+    "import/resolver": {
+      "webpack": {
+        "config": "node_modules/@vue/cli-service/webpack.config.js"
+      }
+    }
+  },
+  "ignorePatterns": ["coverage"],
+  "parserOptions": {
+    "project": ["./tsconfig.json"]
+  },
+  "overrides": [
+    {
+      "files": [
+        "**/__tests__/*.{j,t}s?(x)",
+        "**/tests/unit/**/*.spec.{j,t}s?(x)"
+      ],
+      "env": {
+        "jest": true
+      }
+    }
+  ]
+}

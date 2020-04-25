@@ -1,0 +1,26 @@
+.DS_Store
+
+# python artifacts
+*.pyc
+__pycache__/
+
+# Editor directories and files
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Others
+venv/
+
+instance/
+
+.pytest_cache/
+.coverage
+htmlcov/
+
+dist/
+build/

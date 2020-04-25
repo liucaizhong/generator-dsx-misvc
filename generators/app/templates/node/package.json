@@ -1,0 +1,46 @@
+{
+  "name": "servicename",
+  "version": "1.0.0",
+  "main": "server.js",
+  "scripts": {
+    "start": "cross-env NODE_ENV=production node ./src/server.js",
+    "dev": "cross-env NODE_ENV=development supervisor -w src ./src/server.js",
+    "prelint": "eclint check $(git ls-files)",
+    "lint": "eslint --report-unused-disable-directives . --fix --quiet",
+    "lint:editor": "eclint fix $(git ls-files)",
+    "tests-only": "cross-env NODE_ENV=test jest",
+    "pretest": "npm run --silent lint",
+    "test": "npm run --silent tests-only",
+    "prepare": "(not-in-publish || npm test) && safe-publish-latest"
+  },
+  "keywords": [
+    "javascript",
+    "nodejs",
+    "es2020"
+  ],
+  "license": "MIT",
+  "engines": {
+		"node": ">=12"
+  },
+  "dependencies": {
+    "@cloudnative/health-connect": "^2.1.0",
+    "appmetrics-prometheus": "^3.1.0",
+    "cookie-parser": "~1.4.4",
+    "cross-env": "^6.0.3",
+    "debug": "~2.6.9",
+    "express": "~4.16.1",
+    "http-errors": "~1.6.3",
+    "morgan": "~1.9.1",
+    "dotenv": "^8.2.0"
+  },
+  "devDependencies": {
+    "jest": "^24.9.0",
+    "supertest": "^4.0.2",
+    "supervisor": "^0.12.0",
+    "husky": "4.2.5",
+    "lint-staged": "^10.1.7",
+    "eclint": "^2.8.1",
+    "in-publish": "^2.0.1",
+    "safe-publish-latest": "^1.1.4"
+  }
+}

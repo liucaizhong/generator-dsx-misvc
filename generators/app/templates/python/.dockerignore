@@ -1,0 +1,10 @@
+**/Dockerfile
+**/.dockerignore
+**/.gitignore
+**/.git
+**/README.md
+**/chart/
+**/tests/
+**/.eslintrc.js
+
+Makefile

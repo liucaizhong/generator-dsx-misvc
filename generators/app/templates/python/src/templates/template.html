@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/template.css') }}">
+  <link rel="stylesheet" href="https://unpkg.com/fiori-fundamentals@latest/dist/fiori-fundamentals.min.css" />
+  <link rel="icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
+</head>
+
+<body>
+  <header>
+    <div class="container">
+      <div>
+        <div class="fd-shellbar">
+          <div class="fd-shellbar__group fd-shellbar__group--start"><a href="#" class="fd-shellbar__logo"><img
+                src="{{ url_for('static', filename='images/sap-logo.png') }}"
+                alt="SAP" width="48" height="24"></a>
+            <div class="fd-shellbar__product"><span class="fd-shellbar__title">Python Flask Template</span></div>
+          </div>
+          <div class="fd-shellbar__group fd-shellbar__group--end">
+            <div class="fd-shellbar__actions">
+              <div class="fd-shellbar__action fd-shellbar__action--show-always">
+                <div class="fd-user-menu">
+                  <div class="fd-popover">
+                    <div class="fd-popover__control">
+                      <div role="button" class="fd-user-menu__control"><span role="presentation"
+                          class="sap-icon--person-placeholder fd-has-background-color-accent-6 fd-identifier--s fd-identifier--circle"></span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  {% block content %}
+  {% endblock %}
+
+</body>
+
+</html>

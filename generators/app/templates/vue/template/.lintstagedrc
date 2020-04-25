@@ -1,0 +1,6 @@
+{
+  "*.{(j|t)s?(x),vue}": [
+    "eslint --report-unused-disable-directives . --ext .ts,.tsx --fix --quiet",
+    "git add ."
+  ]
+}
