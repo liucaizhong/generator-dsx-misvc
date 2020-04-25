@@ -17,9 +17,9 @@ npm i -g yo
 
 ### Option1: Install from Yeoman
 
-1. Type `yo` in the terminal
-2. Choose `Install a generator` and type `dsx-misvc` to search and install
-3. You can use the generator once the installation is done.
+```sh
+npm install -g generator-dsx-misvc
+```
 
 ### Option2: Install in local environment
 
