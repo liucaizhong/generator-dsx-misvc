@@ -1,3 +1,8 @@
+1.1.2 / 2020-04-27
+==================
+
+- [feature] set `max_line_length` only for `js, ts, jsx, tsx, vue`
+
 1.1.1 / 2020-04-27
 ==================
 
