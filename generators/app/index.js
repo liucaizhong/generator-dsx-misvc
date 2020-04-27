@@ -218,9 +218,9 @@ module.exports = class extends Generator {
             `npx install-peerdeps --dev eslint-config-dsx-react`)
 
           if (useYarn) {
-            this._runSync('yarn add -D husky lint-staged eclint in-publish safe-publish-latest')
+            this._runSync('yarn add -D husky lint-staged eclint in-publish safe-publish-latest serve')
           } else {
-            this._runSync('npm i -D husky lint-staged eclint in-publish safe-publish-latest')
+            this._runSync('npm i -D husky lint-staged eclint in-publish safe-publish-latest serve')
           }
           // update package.json
           const pkg = fs.readJsonSync(path.resolve(this.targetDir, 'package.json'))
@@ -232,6 +232,7 @@ module.exports = class extends Generator {
             "lint": "eslint --report-unused-disable-directives . --ext .ts,.tsx --fix --quiet",
             "lint:editor": "eclint fix $(git ls-files)",
             "pretest": "npm run --silent lint",
+            "serve": "serve dist -p 8000",
             "prepare": "(not-in-publish || npm test) && safe-publish-latest"
           })
           fs.writeJsonSync(path.resolve(this.targetDir, 'package.json'), pkg, {
@@ -271,9 +272,9 @@ module.exports = class extends Generator {
             `npx install-peerdeps --dev eslint-config-dsx-vue`)
 
           if (useYarn) {
-            this._runSync('yarn add -D husky lint-staged eclint in-publish safe-publish-latest eslint-import-resolver-webpack')
+            this._runSync('yarn add -D husky lint-staged eclint in-publish safe-publish-latest eslint-import-resolver-webpack serve')
           } else {
-            this._runSync('npm i -D husky lint-staged eclint in-publish safe-publish-latest eslint-import-resolver-webpack')
+            this._runSync('npm i -D husky lint-staged eclint in-publish safe-publish-latest eslint-import-resolver-webpack serve')
           }
           // update package.json
           const pkg = fs.readJsonSync(path.resolve(this.targetDir, 'package.json'))
@@ -284,6 +285,7 @@ module.exports = class extends Generator {
             "lint:editor": "eclint fix $(git ls-files)",
             "pretest": "npm run --silent lint",
             "test": "npm run --silent test:unit",
+            "serve": "serve dist -p 8000",
             "prepare": "(not-in-publish || npm test) && safe-publish-latest"
           })
           fs.writeJsonSync(path.resolve(this.targetDir, 'package.json'), pkg, {

@@ -2,7 +2,8 @@ const descriptions = {
   start: 'Start the application',
   dev: 'Develop the application',
   test: 'Test the application',
-  build: 'Build the application'
+  build: 'Build the application',
+  serve: "Serve the application"
 }
 
 const printScripts = (pkg, hasYarn) => {
