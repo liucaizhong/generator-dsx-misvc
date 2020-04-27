@@ -218,14 +218,20 @@ module.exports = class extends Generator {
             `npx install-peerdeps --dev eslint-config-dsx-react`)
 
           if (useYarn) {
-            this._runSync('yarn add -D husky lint-staged eclint in-publish safe-publish-latest serve')
+            this._runSync('yarn add -D husky lint-staged eclint in-publish safe-publish-latest serve @rescripts/cli')
           } else {
-            this._runSync('npm i -D husky lint-staged eclint in-publish safe-publish-latest serve')
+            this._runSync('npm i -D husky lint-staged eclint in-publish safe-publish-latest serve @rescripts/cli')
           }
           // update package.json
           const pkg = fs.readJsonSync(path.resolve(this.targetDir, 'package.json'))
 
           if (pkg['eslintConfig']) delete pkg['eslintConfig']
+
+          for (let script in pkg.scripts) {
+            if (pkg.scripts[script].includes('react-scripts')) {
+              pkg.scripts[script] = pkg.scripts[script].replace('react-scripts', 'rescripts')
+            }
+          }
 
           Object.assign(pkg.scripts, {
             "prelint": "eclint check $(git ls-files)",
