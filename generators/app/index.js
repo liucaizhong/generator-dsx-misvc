@@ -6,11 +6,11 @@ const path = require('path')
 const execa = require('execa')
 const { execSync } = require('child_process')
 const validateServiceName = require('validate-npm-package-name')
-const { clearConsole } = require('../../utils/logger')
-const { logWithSpinner, stopSpinner } = require('../../utils/spinner')
-const { hasYarn, hasProjectYarn, hasGit, hasProjectGit } = require('../../utils/env')
-const generateReadme = require('../../utils/generateReadme')
-const generateChangelog = require('../../utils/generateChangelog')
+const { clearConsole } = require('./utils/logger')
+const { logWithSpinner, stopSpinner } = require('./utils/spinner')
+const { hasYarn, hasProjectYarn, hasGit, hasProjectGit } = require('./utils/env')
+const generateReadme = require('./utils/generateReadme')
+const generateChangelog = require('./utils/generateChangelog')
 
 module.exports = class extends Generator {
   constructor (args, opts) {
