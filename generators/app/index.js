@@ -206,8 +206,8 @@ module.exports = class extends Generator {
         },
       ).then(() => {
         if (fs.existsSync(path.resolve(this.targetDir, 'package.json'))) {
-          fs.copySync(path.resolve(this.sourceRoot(), this.cliOptions.type, 'template'),
-            this.targetDir)
+          // fs.copySync(path.resolve(this.sourceRoot(), this.cliOptions.type, 'template'),
+          //   this.targetDir)
 
           // enable Eslint and Prettier
           console.log()
@@ -247,9 +247,17 @@ module.exports = class extends Generator {
           stopSpinner()
           console.log('🎉  Successfully enable Eslint and Prettier.')
           console.log()
+
+          fs.copySync(path.resolve(this.sourceRoot(), this.cliOptions.type, 'template'),
+          this.targetDir)
         }
       })
-
+      process.on('SIGINT', () => {
+        fs.removeSync(this.targetDir)
+      })
+      process.on('SIGTERM', () => {
+        fs.removeSync(this.targetDir)
+      })
       break
     case 'vue':
       execa(
@@ -266,8 +274,8 @@ module.exports = class extends Generator {
         },
       ).then(() => {
         if (fs.existsSync(path.resolve(this.targetDir, 'package.json'))) {
-          fs.copySync(path.resolve(this.sourceRoot(), this.cliOptions.type, 'template'),
-            this.targetDir)
+          // fs.copySync(path.resolve(this.sourceRoot(), this.cliOptions.type, 'template'),
+          //   this.targetDir)
 
           // enable Eslint and Prettier
           console.log()
@@ -300,6 +308,9 @@ module.exports = class extends Generator {
           stopSpinner()
           console.log('🎉  Successfully enable Eslint and Prettier.')
           console.log()
+
+          fs.copySync(path.resolve(this.sourceRoot(), this.cliOptions.type, 'template'),
+          this.targetDir)
         }
       })
       process.on('SIGINT', () => {
