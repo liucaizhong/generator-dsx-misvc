@@ -6,6 +6,7 @@ const path = require('path')
 const execa = require('execa')
 const { execSync } = require('child_process')
 const validateServiceName = require('validate-npm-package-name')
+const semver = require('semver')
 const { clearConsole } = require('./utils/logger')
 const { logWithSpinner, stopSpinner } = require('./utils/spinner')
 const { hasYarn, hasProjectYarn, hasGit, hasProjectGit } = require('./utils/env')
@@ -16,13 +17,14 @@ module.exports = class extends Generator {
   constructor (args, opts) {
     super(args, opts)
 
-    // rewrite _options
-    this._options = {}
-
     // options
     this.option('help', {
       desc: 'Output usage information',
       alias: 'h',
+    })
+    this.option('version', {
+      desc: 'Print version',
+      alias: 'v',
     })
 
     // desc
@@ -71,6 +73,17 @@ module.exports = class extends Generator {
     return true
   }
 
+  async _getRegistry(packageName) {
+    let info
+    try {
+      info = (await execa('npm', ['info', packageName, '--json'])).stdout
+    } catch(e) {
+      console.log(e)
+      process.exit(1)
+    }
+    return info
+  }
+
   _replaceFileContent(filePath, from, to) {
     try {
       const fileContent = fs.readFileSync(filePath).toString('utf8')
@@ -82,12 +95,42 @@ module.exports = class extends Generator {
     }
   }
 
-  initializing () {}
+  initializing () {
+    // print version number
+    if (this.options.version) {
+      const version = require(`../../package.json`).version
+      console.log(version)
+      process.exit(1)
+    }
+  }
 
   async prompting () {
     // get the name of microservice
     if (!this._checkSvcNameExistOrNot()) {
       clearConsole()
+      // check update
+      const current = require(`../../package.json`).version
+      const registry = await this._getRegistry('generator-dsx-misvc')
+      const latest = JSON.parse(registry)['dist-tags']['latest']
+      if (semver.gt(latest, current)) {
+        let title = chalk.bold.blue(`generator-dsx-misvc v${current}`)
+        let upgradeMessage =
+          `New version available ${chalk.magenta(current)} → ${chalk.green(latest)}`
+        const command = 'npm i -g'
+        upgradeMessage +=
+            `\nRun ${chalk.yellow(`${command} generator-dsx-misvc`)} to update!`
+
+        const upgradeBox = require('boxen')(upgradeMessage, {
+          align: 'center',
+          borderColor: 'green',
+          dimBorder: true,
+          padding: 1
+        })
+
+        title += `\n${upgradeBox}\n`
+        console.log(title)
+      }
+
       const { svcName } = await this.prompt([{
         name: 'svcName',
         type: 'input',
@@ -218,9 +261,9 @@ module.exports = class extends Generator {
             `npx install-peerdeps --dev eslint-config-dsx-react`)
 
           if (useYarn) {
-            this._runSync('yarn add -D husky lint-staged eclint in-publish safe-publish-latest serve @rescripts/cli')
+            this._runSync('yarn add -D husky lint-staged eclint in-publish safe-publish-latest serve @rescripts/cli source-map-explorer')
           } else {
-            this._runSync('npm i -D husky lint-staged eclint in-publish safe-publish-latest serve @rescripts/cli')
+            this._runSync('npm i -D husky lint-staged eclint in-publish safe-publish-latest serve @rescripts/cli source-map-explorer')
           }
           // update package.json
           const pkg = fs.readJsonSync(path.resolve(this.targetDir, 'package.json'))
@@ -238,8 +281,9 @@ module.exports = class extends Generator {
             "lint": "eslint --report-unused-disable-directives . --ext .ts,.tsx --fix --quiet",
             "lint:editor": "eclint fix $(git ls-files)",
             "pretest": "npm run --silent lint",
-            "serve": "serve dist -p 8000",
-            "prepare": "(not-in-publish || npm test) && safe-publish-latest"
+            "serve": "serve -s build",
+            "prepare": "(not-in-publish || npm test) && safe-publish-latest",
+            "analyze": "source-map-explorer 'build/static/js/*.js'",
           })
           fs.writeJsonSync(path.resolve(this.targetDir, 'package.json'), pkg, {
             spaces: 2,
@@ -299,7 +343,7 @@ module.exports = class extends Generator {
             "lint:editor": "eclint fix $(git ls-files)",
             "pretest": "npm run --silent lint",
             "test": "npm run --silent test:unit",
-            "serve": "serve dist -p 8000",
+            "serve": "serve -s dist",
             "prepare": "(not-in-publish || npm test) && safe-publish-latest"
           })
           fs.writeJsonSync(path.resolve(this.targetDir, 'package.json'), pkg, {
