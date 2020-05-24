@@ -261,9 +261,9 @@ module.exports = class extends Generator {
             `npx install-peerdeps --dev eslint-config-dsx-react`)
 
           if (useYarn) {
-            this._runSync('yarn add -D husky lint-staged eclint in-publish safe-publish-latest serve @rescripts/cli source-map-explorer')
+            this._runSync('yarn add -D husky lint-staged eclint in-publish safe-publish-latest serve @rescripts/cli @rescripts/rescript-use-babel-config source-map-explorer @pmmmwh/react-refresh-webpack-plugin')
           } else {
-            this._runSync('npm i -D husky lint-staged eclint in-publish safe-publish-latest serve @rescripts/cli source-map-explorer')
+            this._runSync('npm i -D husky lint-staged eclint in-publish safe-publish-latest serve @rescripts/cli @rescripts/rescript-use-babel-config source-map-explorer @pmmmwh/react-refresh-webpack-plugin')
           }
           // update package.json
           const pkg = fs.readJsonSync(path.resolve(this.targetDir, 'package.json'))

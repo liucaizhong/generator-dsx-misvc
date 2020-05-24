@@ -6,7 +6,7 @@
     "start": "cross-env NODE_ENV=production node ./src/server.js",
     "dev": "cross-env NODE_ENV=development supervisor -w src ./src/server.js",
     "prelint": "eclint check $(git ls-files)",
-    "lint": "eslint --report-unused-disable-directives . --fix --quiet",
+    "lint": "eslint --report-unused-disable-directives . --ext .js,.ts --fix --quiet",
     "lint:editor": "eclint fix $(git ls-files)",
     "tests-only": "cross-env NODE_ENV=test jest",
     "pretest": "npm run --silent lint",

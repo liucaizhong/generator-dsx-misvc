@@ -1,6 +1,6 @@
 {
   "*.(j|t)s": [
-    "npm run lint",
+    "eslint --report-unused-disable-directives . --ext .js,.ts --fix --quiet",
     "git add ."
   ]
 }
