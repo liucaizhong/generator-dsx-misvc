@@ -7,7 +7,7 @@ authors = []
 
 [tool.poetry.dependencies]
 python = "^3.7"
-flask = "1.0.2"
+flask = "2.2.5"
 
 
 [tool.poetry.dev-dependencies]
